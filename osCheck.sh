@@ -200,17 +200,21 @@ then
     echo "---------- OS Host ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
     echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
     # Command to check hosts
-    sudo cat /etc/hosts >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    if [ $? -eq 0 ]
-    then
-        echo "   Task 3: Copied file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+    if [ ! -f /etc/hosts ]; then
+        echo "  File /etc/hosts does not exist" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        echo "  File /etc/hosts does not exist"
     else
-        echo "   Task 3: Failed to copy file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        sudo cat /etc/hosts >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        if [ $? -eq 0 ]
+        then
+            echo "   Task 3: Copied file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        else
+            echo "   Task 3: Failed to copy file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        fi
+        echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        echo
     fi
-    echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    echo
-
 
     #4. Mountpoint: Listing mountpoint & compare with fstab 
     echo "---------- Mountpoints ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-mount-"$tstamp".txt
@@ -476,17 +480,23 @@ then
     echo "---------- DNS status ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
     echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
     # Command to check DNS resolver
-    sudo cat /etc/resolv.conf >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-        
-    if [ $? -eq 0 ]
-    then
-        echo "   Task 9: Copied DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+    if [ ! -f /etc/resolv.conf ]; then
+        echo "  File /etc/resolv.conf does not exist" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        echo
+        echo "  File /etc/resolv.conf does not exist"
     else
-        echo "   Task 9: Failed to copy DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
-    fi
-    echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-    #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-    echo
+        sudo cat /etc/resolv.conf >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        
+        if [ $? -eq 0 ]
+        then
+            echo "   Task 9: Copied DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+        else
+            echo "   Task 9: Failed to copy DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+        fi
+        echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        echo
+    fi    
 
 
     #10. Show running process  
@@ -702,15 +712,23 @@ then
     echo "---------- OS Host ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
     echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
     # Command to check hosts
-    sudo cat /etc/hosts >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    if [ $? -eq 0 ]; then
-    echo "   Task 3: Copied file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+    if [ ! -f /etc/hosts ]; then
+        echo "  File /etc/hosts does not exist" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        echo
+        echo "  File /etc/hosts does not exist"
+
     else
-    echo "   Task 3: Failed to copy file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        sudo cat /etc/hosts >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        if [ $? -eq 0 ]
+        then
+            echo "   Task 3: Copied file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        else
+            echo "   Task 3: Failed to copy file /etc/hosts to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt"
+        fi
+        echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
+        echo
     fi
-    echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-hosts-"$tstamp".txt
-    echo
 
 
     #4. Mountpoint: Listing mountpoint & compare with fstab 
@@ -971,16 +989,23 @@ then
     echo "---------- DNS status ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
     echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
     # Command to check DNS resolver
-    sudo cat /etc/resolv.conf >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-    
-    if [ $? -eq 0 ]; then
-    echo "   Task 9: Copied DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+    if [ ! -f /etc/resolv.conf ]; then
+        echo "  File /etc/resolv.conf does not exist" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        echo
+        echo "  File /etc/resolv.conf does not exist"
     else
-    echo "   Task 9: Failed to copy DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
-    fi
-    echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-    ##echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
-    echo
+        sudo cat /etc/resolv.conf >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        
+        if [ $? -eq 0 ]
+        then
+            echo "   Task 9: Copied DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+        else
+            echo "   Task 9: Failed to copy DNS information to ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt"
+        fi
+        echo >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        #echo "---------- Date: $now ----------" >> ./"$hn"-"$STAGE"-"$tstamp"/"$hn"-dns-"$tstamp".txt
+        echo
+    fi 
 
 
     #10. Show running process  
