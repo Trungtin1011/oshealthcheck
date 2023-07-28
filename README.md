@@ -5,15 +5,13 @@ Linux script checking system information
 
 # ########################################### #
 #                                             #
-# Author: Bito NGO                            #
-# Email: bito.ngo@accenture.com               #
+# Author: Tin Trung NGO                       #
 #                                             #
 # ########################################### #
 
-https://git.lbn.fr/transformer-vietnam
 
-The 'osCheck.sh' script is written with the aim to check some system information of Linux servers, which serves DFS M2C project.
-
+The 'osCheck.sh' script is written with the aim to check some system information of Linux servers (Application Consistency
+)
 1. The script will check the system and then generate the files to save these infomation. It's tasks include:
     - Check OS/services -> os
     - Check CPU/RAM/DISK -> cpu/ram/disks
