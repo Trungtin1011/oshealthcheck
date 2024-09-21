@@ -1,13 +1,8 @@
 # oshealthcheck
 Linux script checking system information
 
-#         LINUX OS HEALTHCHECK SCRIPT         #
-
-# ########################################### #
-#                                             #
-# Author: Tin Trung NGO                       #
-#                                             #
-# ########################################### #
+## Author: Tin Trung Ngo
+## 
 
 
 The 'osCheck.sh' script is written with the aim to check some system information of Linux servers (Application Consistency
