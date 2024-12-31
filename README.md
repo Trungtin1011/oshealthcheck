@@ -17,9 +17,9 @@ The script is written with the aim to check some system information of Linux/Uni
 ** Note: You need to be the **super user** or in **sudo group** before running the script.
 
 This script has been tested and works well on
-> amd64: Amazon Linux 2023
+> linux: Amazon Linux 2023
 
-> arm64: MacOS
+> darwin: MacOS arm64
 
 <br>
 
