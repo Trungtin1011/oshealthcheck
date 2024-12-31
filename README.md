@@ -1,18 +1,22 @@
-# oshealthcheck: Linux utility to check system information
+# oshealthcheck
 
-### Author: Tin Trung Ngo
-### Contact: trungtinth1011@gmail.com
+**Author**: Tin Trung Ngo
+**Contact**: trungtinth1011@gmail.com
+
+Linux utility to check system information
 
 ## Before you begin
 
-This script is used to create a report in Linux/Unix system information.
-
-** Note: You need to be the **super user** or in **sudo group** before running the script
-
-> This script has been tested and works well on Debian 11, CentOS 7, Ubuntu 20.04, Red Hat 8.2
-
 The script is written with the aim to check some system information of Linux/Unix servers. What is does include:
-1. OS services: Collect host information
+1. Collect host information
+
+
+** Note: You need to be the **super user** or in **sudo group** before running the script.
+
+This script has been tested and works well on
+> amd64: Amazon Linux
+> arm64: MacOS
+
 
 ## Setup
 
