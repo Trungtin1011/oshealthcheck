@@ -7,7 +7,7 @@ HOSTNAME=$(uname -n)
 CURRENT_DAY=$(date)
 CURRENT_TIMESTAMP="$(date +'%Y%b%d')"
 DIR="report"-"$HOSTNAME"-"$CURRENT_TIMESTAMP"
-FUNCTIONS=("Usage" "Host check" "Generate report" "Clean up report" "Exit")
+FUNCTIONS=("Usage" "Host check" "Services check" "Generate report" "Clean up report" "Exit")
 HAS_CURL="$(type "curl" &>/dev/null && echo true || echo false)"
 HAS_WGET="$(type "wget" &>/dev/null && echo true || echo false)"
 
@@ -26,7 +26,9 @@ case $(echo `uname`|tr '[:upper:]' '[:lower:]') in
 esac
 
 # Runs the given command as root (detects if we are root already)
-runAsRoot() {[ $EUID -ne 0 ] && sudo "${@}" || "${@}"}
+runAsRoot() {
+  [ $EUID -ne 0 ] && sudo "${@}" || "${@}"
+}
 
 # Create report directory
 createDir() {
@@ -41,7 +43,7 @@ deleteDir() {
 
 # Printout script usage
 printUsage() {
-  printf "This script is used to check system health and utilities.\n"
+  printf "This script is used to check system information of Linux/Unix servers.\n"
   printSelection
 }
 
@@ -88,6 +90,19 @@ checkHost-report() {
   fi
 }
 
+checkRunningSvc() {
+  case $OS in
+    darwin)
+      launchctl list | grep -v '-' ;;
+    linux)
+      systemctl --type=service --state=running ;;
+    *)
+      printf "Unknown system architecture\n" ;;
+  esac
+  printSelection
+}
+
+
 genReport() {
   createDir
   checkHost-report
@@ -102,8 +117,9 @@ while true; do
     case $REPLY in
       1) printUsage ;;
       2) checkHost ;;
-      3) genReport ;;
-      4) deleteDir ;;
+      3) checkRunningSvc ;;
+      4) genReport ;;
+      5) deleteDir ;;
       $((${#FUNCTIONS[@]}))) printf "Exitting... Bye!\n" && break 2 ;;
       *) printf "Error - Unknown selection $REPLY\n" && break ;;
     esac
