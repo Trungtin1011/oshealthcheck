@@ -1,9 +1,12 @@
 # oshealthcheck
 
 **Author**: Tin Trung Ngo
+
 **Contact**: trungtinth1011@gmail.com
 
 Linux utility to check system information
+
+<br>
 
 ## Before you begin
 
@@ -14,9 +17,11 @@ The script is written with the aim to check some system information of Linux/Uni
 ** Note: You need to be the **super user** or in **sudo group** before running the script.
 
 This script has been tested and works well on
-> amd64: Amazon Linux
+> amd64: Amazon Linux 2023
+
 > arm64: MacOS
 
+<br>
 
 ## Setup
 
@@ -30,6 +35,8 @@ function oshealthcheck() {
 }
 EOF
 ```
+
+<br>
 
 ## License
 
