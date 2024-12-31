@@ -6,25 +6,27 @@
 HOSTNAME=$(uname -n)
 CURRENT_DAY=$(date)
 CURRENT_TIMESTAMP="$(date +'%Y%b%d')"
-OS=$(echo `uname`|tr '[:upper:]' '[:lower:]')
 DIR="report"-"$HOSTNAME"-"$CURRENT_TIMESTAMP"
 FUNCTIONS=("Usage" "Host check" "Generate report" "Clean up report" "Exit")
-HAS_CURL="$(type "curl" &> /dev/null && echo true || echo false)"
-HAS_WGET="$(type "wget" &> /dev/null && echo true || echo false)"
+HAS_CURL="$(type "curl" &>/dev/null && echo true || echo false)"
+HAS_WGET="$(type "wget" &>/dev/null && echo true || echo false)"
 
 # Detect current system architecture.
 case $(uname -m) in
-  aarch64) ARCHITECT="arm64";;
-  arm64) ARCHITECT="arm64";;
-  x86_64) ARCHITECT="amd64";;
+  aarch64) ARCH="arm64" ;;
+  arm64) ARCH="arm64" ;;
+  x86_64) ARCH="amd64" ;;
 esac
 
-
+# Detect current OS.
+case $(echo `uname`|tr '[:upper:]' '[:lower:]') in
+  linux) OS="linux" ;;
+  darwin) OS="darwin" ;;
+  mingw*|cygwin*) OS='windows';;
+esac
 
 # Runs the given command as root (detects if we are root already)
-runAsRoot() {
-  [ $EUID -ne 0 ] && sudo "${@}" || "${@}"
-}
+runAsRoot() {[ $EUID -ne 0 ] && sudo "${@}" || "${@}"}
 
 # Create report directory
 createDir() {
@@ -46,20 +48,20 @@ printUsage() {
 # Return selection menu when a function is finish
 printSelection() {
   printf "\n"
-  case $ARCHITECT in
-    arm64)
-      for ((i=1; i <= "${#FUNCTIONS[@]}"; i++)); do printf "$i) ${FUNCTIONS[$i]}\t"; done ;;
-    amd64)
-      for i in "${!FUNCTIONS[@]}"; do printf "$(($i+1))) ${FUNCTIONS[$i]}\t"; done ;;
+  case $OS in
+    darwin)
+      for ((i = 1; i <= "${#FUNCTIONS[@]}"; i++)); do printf "$i) ${FUNCTIONS[$i]}\t"; done ;;
+    linux)
+      for i in "${!FUNCTIONS[@]}"; do printf "$(($i + 1))) ${FUNCTIONS[$i]}\t"; done ;;
   esac
   printf "\n"
 }
 
 checkHost() {
-  case $ARCHITECT in
-    arm64)
-      system_profiler SPHardwareDataType SPSoftwareDataType ;;
-    amd64)
+  case $OS in
+    darwin)
+      system_profiler SPHardwareDataType SPSoftwareDataType SPMemoryDataType ;;
+    linux)
       hostnamectl ;;
     *)
       printf "Unknown system architecture\n" ;;
@@ -69,14 +71,14 @@ checkHost() {
 
 checkHost-report() {
   if [ "$(ls "./$DIR" | grep "osinfo.txt")" = "" ]; then
-    case $ARCHITECT in
-      arm64)
-        echo "OS Information" >> ./$DIR/osinfo.txt
-        system_profiler SPHardwareDataType SPSoftwareDataType >> ./$DIR/osinfo.txt
+    case $OS in
+      darwin)
+        echo "OS Information" >>./$DIR/osinfo.txt
+        system_profiler SPHardwareDataType SPSoftwareDataType SPMemoryDataType >>./$DIR/osinfo.txt
         printf "OS Information reported!\n" ;;
-      amd64)
-        echo "OS Information" >> ./$DIR/osinfo.txt
-        hostnamectl >> ./$DIR/osinfo.txt
+      linux)
+        echo "OS Information" >>./$DIR/osinfo.txt
+        hostnamectl >>./$DIR/osinfo.txt
         printf "OS Information reported!\n" ;;
       *)
         printf "Unknown system architecture\n" ;;
@@ -84,7 +86,6 @@ checkHost-report() {
   else
     printf "OS Information report existed!\n"
   fi
-
 }
 
 genReport() {
@@ -93,13 +94,11 @@ genReport() {
   printSelection
 }
 
-
 # User's choices logic
 PS3="Select a function: "
 
 while true; do
-  select FUNC in "${FUNCTIONS[@]}"
-  do
+  select FUNC in "${FUNCTIONS[@]}"; do
     case $REPLY in
       1) printUsage ;;
       2) checkHost ;;
