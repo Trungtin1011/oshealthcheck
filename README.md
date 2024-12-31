@@ -14,7 +14,7 @@ The script is written with the aim to check some system information of Linux/Uni
 1. Collect host information
 
 
-** Note: You need to be the **super user** or in **sudo group** before running the script.
+**Note**: You need to be the **super user** or in **sudo group** before running the script.
 
 This script has been tested and works well on
 > linux: Amazon Linux 2023
