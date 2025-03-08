@@ -116,6 +116,7 @@ systemCheck-report() {
 resourcesCheck() {
   case $OS in
     darwin)
+      system_profiler SPMemoryDataType
       diskutil list ;;
     linux)
       df -hPT ;;
@@ -130,10 +131,12 @@ resourcesCheck-report() {
     case $OS in
       darwin)
         echo "Resources Information" >> ./$DIR/resourcesinfo.txt
+        system_profiler SPMemoryDataType >> ./$DIR/resourcesinfo.txt
         diskutil list >> ./$DIR/resourcesinfo.txt
         printf "Resources Information reported!\n" ;;
       linux)
         echo "Resources Information" >> ./$DIR/resourcesinfo.txt
+        free >> ./$DIR/resourcesinfo.txt
         df -hPT >> ./$DIR/resourcesinfo.txt
         printf "Resources Information reported!\n" ;;
       *)
@@ -234,7 +237,7 @@ genReport() {
 }
 
 
-# User's choices logic
+# Main loop for user's choices logic
 PS3="Select a function: "
 
 while true; do
@@ -248,7 +251,7 @@ while true; do
       6) deleteDir ;;
       7) printUsage ;;
       $((${#FUNCTIONS[@]}))) printf "Exitting... Bye!\n" && break 2 ;;
-      *) printf "Error - Unknown selection $REPLY\n" && break ;;
+      *) printf "Invalid choice $REPLY. Please try again.\n" && break ;;
     esac
   done
 done
