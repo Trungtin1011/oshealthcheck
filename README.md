@@ -11,12 +11,19 @@ Linux utility to check system information
 ## Before you begin
 
 The script is written with the aim to check some system information of Linux/Unix servers. What is does include:
-1. Collect host information
 
+1. Collect system information
+2. Collect resource utilization
+3. Collect system services
+4. Collect network status
+5. Generate report for above information
+6. Cleanup report
+7. Check script usage
 
 **Note**: You need to be the **super user** or in **sudo group** before running the script.
 
 This script has been tested and works well on
+
 > linux: Amazon Linux 2023
 
 > darwin: MacOS arm64
@@ -31,7 +38,7 @@ To turn `oshealthcheck` function into an executable command, run below command:
 cat <<'EOF' >> $HOME/.zshrc OR cat <<'EOF' >> $HOME/.bashrc
 
 function oshealthcheck() {
-  . $HOME/path/to/main.sh
+  . $HOME/path/to/oshealthcheck.sh
 }
 EOF
 ```
