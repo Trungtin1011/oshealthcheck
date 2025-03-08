@@ -49,20 +49,19 @@ def printUsage():
 
 
 # Clear the console screen.
-def clear_screen():
+def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
 # Displays the menu options.
-def display_menu(options):
-    # clear_screen()
+def displayMenu(options):
     print("Select a function: ")
     for i, option in enumerate(options):
         print(f"{i + 1}. {option}")
 
 
 # Gets valid user input for the menu choice.
-def get_user_choice(num_options):
+def getOption(num_options):
     while True:
         try:
             choice = int(input("Enter your choice: "))
@@ -75,8 +74,7 @@ def get_user_choice(num_options):
 
 
 # Processes the user's choice.
-def process_choice(choice, options, functions):
-    # clear_screen()
+def processOption(choice, options, functions):
     # selected_option = options[choice - 1]
     # print(f"You selected: {selected_option}")
 
@@ -147,7 +145,6 @@ menu_options = [
     "System Services",
     "Network Status",
     "Check Usage",
-    "Clear Screen",
     "Exit",
 ]
 menu_functions = [
@@ -156,11 +153,10 @@ menu_functions = [
     servicesCheck,
     networkCheck,
     printUsage,
-    clear_screen,
     gracefulExit,
 ]
 
 while True:
-    display_menu(menu_options)
-    user_choice = get_user_choice(len(menu_options))
-    process_choice(user_choice, menu_options, menu_functions)
+    displayMenu(menu_options)
+    user_choice = getOption(len(menu_options))
+    processOption(user_choice, menu_options, menu_functions)
